@@ -52,7 +52,7 @@
                 success: function(data) {
                     $('.tag').html(data);
                     $('#form').addClass('hidden message');
-                    if(data == 'false') {
+                    if(data == false) {
                         $('.content').html(data);
                         $('#unknown').removeClass('hidden message');
                     }
