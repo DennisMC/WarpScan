@@ -4,6 +4,30 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	</head>
 	<body>
+
+    <button class="submit">Tryk!</button>
+    <div class="content"></div>
+
+    <script type="text/javascript">
+        /**
+         * Get the bank roll amount
+         */
+        function getItem() {
+            $.ajax({
+                type: 'GET',
+                url: 'index.php/get',
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                    $(".content").html(data);
+                }
+            });
+        }
+
+        $('.submit').click(function () {
+            getItem();
+        });
+    </script>
 	
 	</body>
 </html>
