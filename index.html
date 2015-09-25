@@ -10,64 +10,72 @@
 	</head>
 	<body>
 
-    <div class="ui container">
+    <div class="ui middle aligned center aligned grid" style="max-width: 700px; margin: auto;">
+        <div class="column">
 
-        <div id="message" class="ui hidden message"></div>
+            <div id="message" class="ui hidden message"></div>
 
-        <div id="start" class="ui">
-            <h1 class="ui center aligned header">Scan</h1>
-            <form class="ui form" action="javascript:return false;">
-                <input id="startTag" name="tag" type="text" autofocus>
-                <button class="scan ui button">Submit</button>
-            </form>
-        </div>
-
-        <div id="unknown" class="ui hidden message">
-            <h1 class="ui center aligned header">Unknown item</h1>
-            <h2 class="tag"></h2>
-            <button class="unknownAdd ui button">Add</button>
-            <button class="cancel ui button">Cancel</button>
-        </div>
-
-        <div id="new" class="ui hidden message">
-            <form class="ui form" action="javascript:return false;">
-                <div class="field">
-                    <label>Tag</label>
-                    <p class="tag"></p>
-                </div>
-                <div class="field">
-                    <label>Name</label>
-                    <input type="text" name="name">
-                </div>
-                <div class="field">
-                    <label>Amount</label>
-                    <input type="number" name="amount">
-                </div>
-                <button class="newSubmit ui button" type="submit">Submit</button>
-            </form>
-        </div>
-
-        <div id="item" class="ui hidden message">
-            <h1 class="ui center aligned header name"></h1>
-            <div class="ui label">
-                Tag
-                <div class="detail tag"></div>
-            </div>
-            <div class="ui label">
-                Amount
-                <div class="detail amount"></div>
+            <div id="start" class="ui">
+                <h1 class="ui center aligned header">Scan</h1>
+                <form class="ui form" action="javascript:return false;">
+                    <input id="startTag" name="tag" type="text" autofocus>
+                    <button class="scan ui fluid button">Submit</button>
+                </form>
             </div>
 
-            <form class="ui form" action="javascript:return false;">
-                <div class="field">
-                    <label>Amount</label>
-                    <input type="number" name="amount" value="1">
+            <div id="unknown" class="ui hidden message">
+                <h1 class="ui center aligned header">Unknown item</h1>
+                <h2 class="tag"></h2>
+                <div class="ui grid container">
+                    <div class="two wide column">
+                        <button class="unknownAdd ui fluid button">Add</button>
+                    </div>
+                    <div class="two wide column">
+                        <button class="cancel ui fluid button">Cancel</button>
+                    </div>
                 </div>
-                <button class="itemRemove ui negative button" type="submit">Remove from stock</button>
-                <button class="itemAdd ui positive button" type="submit">Add to stock</button>
-            </form>
-        </div>
+            </div>
 
+            <div id="new" class="ui hidden message">
+                <form class="ui form" action="javascript:return false;">
+                    <div class="field">
+                        <label>Tag</label>
+                        <p class="tag"></p>
+                    </div>
+                    <div class="field">
+                        <label>Name</label>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="field">
+                        <label>Amount</label>
+                        <input type="number" name="amount">
+                    </div>
+                    <button class="newSubmit ui button" type="submit">Submit</button>
+                </form>
+            </div>
+
+            <div id="item" class="ui hidden message">
+                <h1 class="ui center aligned header name"></h1>
+                <div class="ui label">
+                    Tag
+                    <div class="detail tag"></div>
+                </div>
+                <div class="ui label">
+                    Amount
+                    <div class="detail amount"></div>
+                </div>
+
+                <form class="ui form" action="javascript:return false;">
+                    <div class="field">
+                        <label>Amount</label>
+                        <input type="number" name="amount" value="1">
+                    </div>
+                    <button class="itemRemove ui negative button" type="submit">Remove from stock</button>
+                    <button class="itemAdd ui positive button" type="submit">Add to stock</button>
+                </form>
+            </div>
+
+        </div>
     </div>
 
     <script type="text/javascript">
@@ -171,13 +179,13 @@
 
         $('.itemAdd').click(function () {
             var tag = $('.tag').html();
-            var amount = $('#new').find('input[name="amount"]').val();
+            var amount = $('#item').find('input[name="amount"]').val();
             addItem(tag, amount);
         });
 
         $('.itemRemove').click(function () {
             var tag = $('.tag').html();
-            var amount = $('#new').find('input[name="amount"]').val();
+            var amount = $('#item').find('input[name="amount"]').val();
             removeItem(tag, amount);
         });
 
