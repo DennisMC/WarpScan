@@ -68,6 +68,17 @@ class warpscan {
     }
 
     public function removeItem($strTag, $intAmount = 1) {
-        // Remove items
+
+        if(!is_numeric($intAmount)){
+            return false;
+        }
+        $intAmount = intval($intAmount);
+
+        $stmtIncreaseAmount = "UPDATE items SET amount = amount-:intAmount WHERE tag = :strTag";
+        $objUpdate = $this->pdo->prepare($stmtIncreaseAmount);
+        $objUpdate->bindParam(':intAmount',$intAmount,PDO::PARAM_INT);
+        $objUpdate->bindParam(':strTag',$strTag,PDO::PARAM_STR);
+        $blnSuccess = $objUpdate->execute();
+        return $blnSuccess;
     }
 }

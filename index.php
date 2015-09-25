@@ -29,9 +29,9 @@ $app->get('/add/:strTag/:intAmount', function ($strTag, $intAmount) {
     echo json_encode($objWarpscan->addItem($strTag, $intAmount));
 });
 
-$app->get('/remove', function () {
+$app->get('/remove/:strTag/:intAmount', function ($strTag, $intAmount) {
     global $objWarpscan;
-    echo json_encode($objWarpscan->removeItem());
+    echo json_encode($objWarpscan->removeItem($strTag, $intAmount));
 });
 
 $app->run();
