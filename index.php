@@ -19,9 +19,9 @@ $app->get('/get/:tag', function ($tag) {
     echo json_encode($objWarpscan->getItem($tag));
 });
 
-$app->get('/new', function () {
+$app->get('/new/:strTag/:strName/:intAmount', function ($strTag, $strName, $intAmount) {
     global $objWarpscan;
-    echo json_encode($objWarpscan->newItem());
+    echo json_encode($objWarpscan->newItem($strTag, $strName, $intAmount));
 });
 
 $app->get('/add', function () {
