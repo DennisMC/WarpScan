@@ -1,0 +1,2 @@
+# WarpScan
+Barcode inventory management
