@@ -31,9 +31,13 @@ class warpscan {
 
         if($stmtGetItems->execute()){
             //do some checks and get data
-         return 'Exists!';
+            $arrItems = $stmtGetItems->fetchAll(PDO::FETCH_ASSOC);
+            if(is_array($arrItems) && !empty($arrItems)){
+                return 'Exists!';
+            }
+            return false;
         }
-        return 'Does not exist';
+        return false;
     }
 
     public function newItem($strTag, $strName, $intAmount = 1) {
