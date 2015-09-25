@@ -9,6 +9,8 @@
 class warpscan {
 
     private $pdo;
+    const ITEM_REMOVE = 1;
+    const ITEM_ADD = 2;
 
     function __construct() {
         $strHost = '127.0.0.1';
@@ -59,26 +61,43 @@ class warpscan {
         }
         $intAmount = intval($intAmount);
 
-        $stmtIncreaseAmount = "UPDATE items SET amount = amount+:intAmount WHERE tag = :strTag";
-        $objUpdate = $this->pdo->prepare($stmtIncreaseAmount);
-        $objUpdate->bindParam(':intAmount',$intAmount,PDO::PARAM_INT);
-        $objUpdate->bindParam(':strTag',$strTag,PDO::PARAM_STR);
-        $blnSuccess = $objUpdate->execute();
-        return $blnSuccess;
+        return $this->updateItem(array('strType' => warpscan::ITEM_ADD, 'strTag' => $strTag, 'intAmount' => $intAmount));
+
     }
 
     public function removeItem($strTag, $intAmount = 1) {
-
         if(!is_numeric($intAmount)){
             return false;
         }
         $intAmount = intval($intAmount);
 
-        $stmtIncreaseAmount = "UPDATE items SET amount = amount-:intAmount WHERE tag = :strTag";
-        $objUpdate = $this->pdo->prepare($stmtIncreaseAmount);
-        $objUpdate->bindParam(':intAmount',$intAmount,PDO::PARAM_INT);
-        $objUpdate->bindParam(':strTag',$strTag,PDO::PARAM_STR);
+        return $this->updateItem(array('strType' => warpscan::ITEM_REMOVE, 'strTag' => $strTag, 'intAmount' => $intAmount));
+
+    }
+
+    private function updateItem($arrData = array()) {
+
+        if(empty($arrData)
+            || !array_key_exists('strType', $arrData)
+            || !array_key_exists('strTag', $arrData)
+        ){
+            return false;
+        }
+
+        if($arrData['strType'] == warpscan::ITEM_REMOVE){
+
+            $stmtUpdate = "UPDATE items SET amount = amount-:intAmount WHERE tag = :strTag";
+        } else if($arrData['strType'] == warpscan::ITEM_ADD) {
+            $stmtUpdate = "UPDATE items SET amount = amount+:intAmount WHERE tag = :strTag";
+        } else{
+            return false;
+        }
+
+        $objUpdate = $this->pdo->prepare($stmtUpdate);
+        $objUpdate->bindParam(':intAmount',$arrData['intAmount'],PDO::PARAM_INT);
+        $objUpdate->bindParam(':strTag',$arrData['strTag'],PDO::PARAM_STR);
         $blnSuccess = $objUpdate->execute();
         return $blnSuccess;
+
     }
 }
