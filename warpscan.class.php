@@ -45,7 +45,7 @@ class warpscan {
         $stmtAddNew = "INSERT INTO items (tag,name,amount) VALUES (:tag,:name,:amount)";
         $objInsert = $this->pdo->prepare($stmtAddNew);
         try {
-            $blnSuccess = $objInsert->execute(array(':tag' => $strTag, ':name' => $strName, ':amount' => $intAmount,));
+            $blnSuccess = $objInsert->execute(array(':tag' => $strTag, ':name' => $strName, ':amount' => intval($intAmount)));
             return $blnSuccess;
         }
         catch(PDOException $e) {
@@ -54,7 +54,17 @@ class warpscan {
     }
 
     public function addItem($strTag, $intAmount = 1) {
-        // Add items
+        if(!is_numeric($intAmount)){
+            return false;
+        }
+        $intAmount = intval($intAmount);
+
+        $stmtIncreaseAmount = "UPDATE items SET amount = amount+:intAmount WHERE tag = :strTag";
+        $objUpdate = $this->pdo->prepare($stmtIncreaseAmount);
+        $objUpdate->bindParam(':intAmount',$intAmount,PDO::PARAM_INT);
+        $objUpdate->bindParam(':strTag',$strTag,PDO::PARAM_STR);
+        $blnSuccess = $objUpdate->execute();
+        return $blnSuccess;
     }
 
     public function removeItem($strTag, $intAmount = 1) {
