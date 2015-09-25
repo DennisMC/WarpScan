@@ -33,7 +33,7 @@ class warpscan {
             //do some checks and get data
             $arrItems = $stmtGetItems->fetchAll(PDO::FETCH_ASSOC);
             if(is_array($arrItems) && !empty($arrItems)){
-                return 'Exists!';
+                return $arrItems;
             }
             return false;
         }
@@ -41,7 +41,16 @@ class warpscan {
     }
 
     public function newItem($strTag, $strName, $intAmount = 1) {
-        // Add a new item
+
+        $stmtAddNew = "INSERT INTO items (tag,name,amount) VALUES (:tag,:name,:amount)";
+        $objInsert = $this->pdo->prepare($stmtAddNew);
+        try {
+            $blnSuccess = $objInsert->execute(array(':tag' => $strTag, ':name' => $strName, ':amount' => $intAmount,));
+            return $blnSuccess;
+        }
+        catch(PDOException $e) {
+            return $e->getMessage();
+        }
     }
 
     public function addItem($strTag, $intAmount = 1) {
