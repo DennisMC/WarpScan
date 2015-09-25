@@ -19,4 +19,19 @@ $app->get('/get', function () {
     echo json_encode($objWarpscan->getItem());
 });
 
+$app->get('/new', function () {
+    global $objWarpscan;
+    echo json_encode($objWarpscan->newItem());
+});
+
+$app->get('/add', function () {
+    global $objWarpscan;
+    echo json_encode($objWarpscan->addItem());
+});
+
+$app->get('/remove', function () {
+    global $objWarpscan;
+    echo json_encode($objWarpscan->removeItem());
+});
+
 $app->run();

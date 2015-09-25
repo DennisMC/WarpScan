@@ -8,8 +8,20 @@
 
 class warpscan {
 
-    public function getItem() {
+    public function getItem($strTag) {
+        // Get the item
         return 'FIRSTitem!!!';
     }
 
+    public function newItem($strTag, $strName, $intAmount = 1) {
+        // Add a new item
+    }
+
+    public function addItem($strTag, $intAmount = 1) {
+        // Add items
+    }
+
+    public function removeItem($strTag, $intAmount = 1) {
+        // Remove items
+    }
 }
