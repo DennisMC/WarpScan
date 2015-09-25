@@ -15,8 +15,9 @@
         <div id="message" class="ui hidden message"></div>
 
         <div id="start" class="ui">
+            <h1 class="ui center aligned header">Scan</h1>
             <form class="ui form" action="javascript:return false;">
-                <input name="tag" type="text">
+                <input name="tag" type="text" autofocus>
                 <button class="scan ui button">Submit</button>
             </form>
         </div>
@@ -47,10 +48,25 @@
         </div>
 
         <div id="item" class="ui hidden message">
-            <h1 class="ui center aligned header">Found item!</h1>
-        </div>
+            <h1 class="ui center aligned header name"></h1>
+            <div class="ui label">
+                Tag
+                <div class="detail tag"></div>
+            </div>
+            <div class="ui label">
+                Amount
+                <div class="detail amount"></div>
+            </div>
 
-        <div class="content"></div>
+            <form class="ui form" action="javascript:return false;">
+                <div class="field">
+                    <label>Amount</label>
+                    <input type="number" name="amount" value="1">
+                </div>
+                <button class="itemRemove ui negative button" type="submit">Remove from stock</button>
+                <button class="itemAdd ui positive button" type="submit">Add to stock</button>
+            </form>
+        </div>
 
     </div>
 
@@ -66,10 +82,12 @@
                     $('.tag').html(tag);
                     $('#start').addClass('hidden message');
                     if(data == false) {
-                        $('.content').html(data);
                         $('#unknown').removeClass('hidden message');
                     }
                     else {
+                        console.log(data);
+                        $('.name').html(data[0]['name']);
+                        $('.amount').html(data[0]['amount']);
                         $('#item').removeClass('hidden message');
                     }
                 }
@@ -83,11 +101,42 @@
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
                     $('#message').html('New item successfully added!');
                     $('#message').removeClass('hidden message');
                     $('#message').addClass('success message');
                     $('#new').addClass('hidden message');
+                    $('#start').removeClass('hidden message');
+                }
+            });
+        }
+
+        function addItem(tag, amount) {
+            $.ajax({
+                type: 'GET',
+                url: 'index.php/add/' + tag + '/' + amount,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                    $('#message').html('Item inventory successfully updated!');
+                    $('#message').removeClass('hidden message');
+                    $('#message').addClass('success message');
+                    $('#item').addClass('hidden message');
+                    $('#start').removeClass('hidden message');
+                }
+            });
+        }
+
+        function removeItem(tag, amount) {
+            $.ajax({
+                type: 'GET',
+                url: 'index.php/remove/' + tag + '/' + amount,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                    $('#message').html('Item inventory successfully updated!');
+                    $('#message').removeClass('hidden message');
+                    $('#message').addClass('success message');
+                    $('#item').addClass('hidden message');
                     $('#start').removeClass('hidden message');
                 }
             });
@@ -111,8 +160,19 @@
             var tag = $('.tag').html();
             var name = $('#new').find('input[name="name"]').val();
             var amount = $('#new').find('input[name="amount"]').val();
-            console.log(tag);
             newItem(tag, name, amount);
+        });
+
+        $('.itemAdd').click(function () {
+            var tag = $('.tag').html();
+            var amount = $('#new').find('input[name="amount"]').val();
+            addItem(tag, amount);
+        });
+
+        $('.itemRemove').click(function () {
+            var tag = $('.tag').html();
+            var amount = $('#new').find('input[name="amount"]').val();
+            removeItem(tag, amount);
         });
 
     </script>
