@@ -13,13 +13,16 @@
     <div class="ui middle aligned center aligned grid" style="max-width: 700px; margin: auto;">
         <div class="column">
 
+            <div style="margin-bottom: 20px;">
+                <img src="logo.png">
+            </div>
+
             <div id="message" class="ui hidden message"></div>
 
             <div id="start" class="ui">
-                <h1 class="ui center aligned header">Scan</h1>
                 <form class="ui form" action="javascript:return false;">
                     <input id="startTag" name="tag" type="text" autofocus>
-                    <button class="scan ui positive fluid button">Submit</button>
+                    <button class="scan ui positive massive fluid button">Submit</button>
                 </form>
             </div>
 
@@ -119,9 +122,9 @@
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $('#message').html('New item successfully added!');
+                    $('#message').html('<i class="checkmark icon"></i><div class="content"><div class="header">New item successfully added!</div></div>');
                     $('#message').removeClass('hidden message');
-                    $('#message').addClass('success message');
+                    $('#message').addClass('success icon message');
                     $('#new').addClass('hidden message');
                     $('#startTag').val('');
                     $('#start').removeClass('hidden message');
@@ -137,9 +140,9 @@
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $('#message').html('Item inventory successfully updated!');
+                    $('#message').html('<i class="checkmark icon"></i><div class="content"><div class="header">Item inventory successfully updated!</div></div>');
                     $('#message').removeClass('hidden message');
-                    $('#message').addClass('success message');
+                    $('#message').addClass('success icon message');
                     $('#item').addClass('hidden message');
                     $('#startTag').val('');
                     $('#start').removeClass('hidden message');
@@ -155,9 +158,9 @@
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $('#message').html('Item inventory successfully updated!');
+                    $('#message').html('<i class="checkmark icon"></i><div class="content"><div class="header">Item inventory successfully updated!</div></div>');
                     $('#message').removeClass('hidden message');
-                    $('#message').addClass('success message');
+                    $('#message').addClass('success icon message');
                     $('#item').addClass('hidden message');
                     $('#startTag').val('');
                     $('#start').removeClass('hidden message');
