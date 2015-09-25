@@ -14,9 +14,9 @@ $app->response->headers->set('Content-Type', 'application/json');
 require_once('warpscan.class.php');
 $objWarpscan = new warpscan;
 
-$app->get('/get', function () {
+$app->get('/get/:tag', function ($tag) {
     global $objWarpscan;
-    echo json_encode($objWarpscan->getItem());
+    echo json_encode($objWarpscan->getItem($tag));
 });
 
 $app->get('/new', function () {

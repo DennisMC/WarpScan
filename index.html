@@ -5,27 +5,31 @@
 	</head>
 	<body>
 
-    <button class="submit">Tryk!</button>
+    <div id="form">
+        <input name="tag" type="text">
+        <button class="submit">Submit</button>
+    </div>
     <div class="content"></div>
 
     <script type="text/javascript">
         /**
          * Get the bank roll amount
          */
-        function getItem() {
+        function getItem(tag) {
             $.ajax({
                 type: 'GET',
-                url: 'index.php/get',
+                url: 'index.php/get/' + tag,
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $(".content").html(data);
+                    $('.content').html(data);
                 }
             });
         }
 
         $('.submit').click(function () {
-            getItem();
+            var tag = $('#form').find('input[name="tag"]').val();
+            getItem(tag);
         });
     </script>
 	

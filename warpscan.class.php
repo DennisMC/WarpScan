@@ -10,7 +10,7 @@ class warpscan {
 
     public function getItem($strTag) {
         // Get the item
-        return 'FIRSTitem!!!';
+        return $strTag;
     }
 
     public function newItem($strTag, $strName, $intAmount = 1) {
