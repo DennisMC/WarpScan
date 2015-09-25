@@ -8,9 +8,32 @@
 
 class warpscan {
 
+    private $pdo;
+
+    function __construct() {
+        $strHost = '127.0.0.1';
+        $strUsername = "root";
+        $strPass = '';
+        $strDatabase = 'warpscan';
+
+        // Create connection
+        $this->pdo = new PDO("mysql:host=$strHost;dbname=$strDatabase", $strUsername, $strPass);
+
+        // set the PDO error mode to exception
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    }
+
     public function getItem($strTag) {
-        // Get the item
-        return $strTag;
+        $stmtGetItems = $this->pdo->prepare('SELECT * FROM `items` WHERE `tag` = :strTag');
+
+        $stmtGetItems->bindParam(':strTag',$strTag,PDO::PARAM_STR);
+
+        if($stmtGetItems->execute()){
+            //do some checks and get data
+         return 'Exists!';
+        }
+        return 'Does not exist';
     }
 
     public function newItem($strTag, $strName, $intAmount = 1) {
