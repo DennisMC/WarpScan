@@ -2,19 +2,47 @@
 	<head>
     <title>WarpScan</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.0.0/semantic.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.0.0/semantic.min.css">
 	</head>
 	<body>
 
-    <div id="form">
+    <div id="form" class="ui">
         <input name="tag" type="text">
-        <button class="submit">Submit</button>
+        <button class="scan ui button">Submit</button>
     </div>
+
+    <div id="unknown" class="ui hidden message">
+        <h1>Unknown item</h1>
+        <h2 class="tag"></h2>
+        <button class="add ui button">Add</button>
+        <button class="cancel ui button">Cancel</button>
+    </div>
+
+    <div id="new" class="ui hidden message">
+        <div class="field">
+            <label>Tag</label>
+            <p class="tag"></p>
+        </div>
+        <div class="field">
+            <label>Name</label>
+            <input type="text" name="name">
+        </div>
+        <div class="field">
+            <label>Amount</label>
+            <input type="number" name="amount" value="1">
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </div>
+
+    <div id="item" class="ui hidden message">
+        <h1>Found item!</h1>
+    </div>
+
     <div class="content"></div>
 
     <script type="text/javascript">
-        /**
-         * Get the bank roll amount
-         */
+
         function getItem(tag) {
             $.ajax({
                 type: 'GET',
@@ -22,14 +50,26 @@
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $('.content').html(data);
+                    $('.tag').html(data);
+                    $('#form').addClass('hidden message');
+                    if(data == 'false') {
+                        $('.content').html(data);
+                        $('#unknown').removeClass('hidden message');
+                    }
+                    else {
+                        $('#item').removeClass('hidden message');
+                    }
                 }
             });
         }
 
-        $('.submit').click(function () {
+        $('.scan').click(function () {
             var tag = $('#form').find('input[name="tag"]').val();
             getItem(tag);
+        });
+
+        $('.add').click(function () {
+            $('#new').removeClass('hidden message');
         });
     </script>
 	
