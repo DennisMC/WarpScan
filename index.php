@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Henrik
- * Date: 03-07-2015
- * Time: 10:12
- */
 
 require_once('vendor/autoload.php');
 $app = new \Slim\Slim();

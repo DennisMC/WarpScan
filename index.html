@@ -48,7 +48,16 @@
                     </div>
                     <div class="field">
                         <label>Amount</label>
-                        <input type="number" name="amount">
+                        <div class="ui action input chevrons">
+                            <button class="ui button amountdec">
+                                <i class="chevron down icon"></i>
+                            </button>
+                            <input type="number" name="amount" value="1">
+                            <button class="ui button amountinc">
+                                <i class="chevron up icon"></i>
+                            </button>
+                        </div>
+
                     </div>
                     <div class="ui buttons">
                         <button class="newSubmit ui massive positive button" type="submit">Submit new item</button>
@@ -76,7 +85,15 @@
                 <form class="ui form" action="javascript:return false;">
                     <div class="field">
                         <label>Add or remove amount</label>
-                        <input type="number" name="amount" value="1">
+                        <div class="ui action input chevrons">
+                            <button class="ui button amountdec">
+                                <i class="chevron down icon"></i>
+                            </button>
+                            <input type="number" name="amount" value="1">
+                            <button class="ui button amountinc">
+                                <i class="chevron up icon"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="ui buttons">
                         <button class="itemRemove ui massive negative button" type="submit">Remove from stock</button>
@@ -109,6 +126,7 @@
                     else {
                         $('.name').html(data[0]['name']);
                         $('.amount').html(data[0]['amount']);
+                        $('.chevrons').find('input[name="amount"]').val(1);
                         $('#item').removeClass('hidden message');
                     }
                 }
@@ -177,6 +195,7 @@
         $('.unknownAdd').click(function () {
             $('#unknown').addClass('hidden message');
             $('#new').removeClass('hidden message');
+            $('.chevrons').find('input[name="amount"]').val(1);
         });
 
         $('.cancel').click(function () {
@@ -200,6 +219,18 @@
             var tag = $('.tag').html();
             var amount = $('#item').find('input[name="amount"]').val();
             removeItem(tag, amount);
+        });
+
+        $('.amountinc').click(function () {
+            var amount = $('.chevrons').find('input[name="amount"]').val();
+            amount = parseInt(amount) + 1;
+            $('.chevrons').find('input[name="amount"]').val(amount);
+        });
+
+        $('.amountdec').click(function () {
+            var amount = $('.chevrons').find('input[name="amount"]').val();
+            amount = parseInt(amount) - 1;
+            $('.chevrons').find('input[name="amount"]').val(amount);
         });
 
     </script>
