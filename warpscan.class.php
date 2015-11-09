@@ -7,10 +7,7 @@ class warpscan {
     const ITEM_ADD = 2;
 
     function __construct() {
-        $strHost = '127.0.0.1';
-        $strUsername = "root";
-        $strPass = '';
-        $strDatabase = 'warpscan';
+        require_once('config.inc.php');
 
         // Create connection
         $this->pdo = new PDO("mysql:host=$strHost;dbname=$strDatabase", $strUsername, $strPass);
