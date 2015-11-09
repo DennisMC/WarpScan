@@ -2,6 +2,7 @@
 
 require_once('vendor/autoload.php');
 use Slim\Slim;
+use Zend\Barcode\Barcode;
 
 $app = new Slim();
 $app->response->headers->set('Content-Type', 'application/json');
@@ -27,5 +28,20 @@ $app->group('/items', function()  use ($objWarpscan, $app) {
     });
 });
 
+$app->get('/barcodes/:strTag.png', function($strTag) use ($app) {
+    $app->response->headers->set('Content-Type', 'image/png');
+
+// Only the text to draw is required
+    $barcodeOptions = array('text' => $strTag);
+
+// No required options
+    $rendererOptions = array();
+
+// Draw the barcode in a new image,
+    Barcode::factory(
+        'code128', 'image', $barcodeOptions, $rendererOptions
+    )->render();
+
+});
 
 $app->run();
