@@ -78,6 +78,8 @@ function removeItem(tag, amount) {
 
 $('.scan').click(function () {
     var tag = $('#start').find('input[name="tag"]').val();
+    document.getElementById('item-barcode-known').src = 'index.php/barcodes/' + tag + '.png';
+    document.getElementById('item-barcode-unknown').src = 'index.php/barcodes/' + tag + '.png';
     getItem(tag);
 });
 

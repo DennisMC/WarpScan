@@ -26,9 +26,12 @@
                 </form>
             </div>
 
+
             <div id="unknown" class="ui hidden message">
                 <h1 class="ui center aligned header">Unknown item</h1>
-                <h2 class="tag"></h2>
+                <div class="ui message">
+                <img id="item-barcode-unknown" class="center aligned" src="index.php/barcodes/WarpScan.png">
+                    </div>
                 <div class="ui buttons">
                     <button class="unknownAdd ui massive positive button">Add</button>
                     <div class="or"></div>
@@ -69,6 +72,7 @@
 
             <div id="item" class="ui hidden message">
                 <h1 class="ui center aligned header name"></h1>
+                <img id="item-barcode-known" src="index.php/barcodes/WarpScan.png">
                 <table class="ui celled table">
                     <thead><tr>
                         <th>Tag</th>
@@ -104,7 +108,6 @@
                     </div>
                 </form>
             </div>
-            <img src="index.php/barcodes/WarpScan.png">
 
         </div>
     </div>
